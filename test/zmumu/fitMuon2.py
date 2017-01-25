@@ -39,9 +39,9 @@ def FillNumDen(num, den):
         process.TnP_MuonID.Variables.numberOfMatchedStations  = cms.vstring("numberOfMatchedStations", "-0.5", "7.5", "")
         process.TnP_MuonID.Variables.tkValidHits  = cms.vstring("tkValidHits", "-0.5", "1000", "") 
         process.TnP_MuonID.Variables.tkExpHitIn = cms.vstring("tkExpHitIn", "-0.5", "1000", "") 
-        process.TnP_MuonID.Variables.tkExpHitOut  = cms.vstring("tkExpHitOut", "-0.5", "1000", "") 
+        process.TnP_MuonID.Variables.tkHitFract  = cms.vstring("tkHitFract", "-0.5", "1000", "") 
         process.TnP_MuonID.Categories.TM = cms.vstring("Tracker Muon", "dummy[pass=1,fail=0]")
-        process.TnP_MuonID.Expressions.TM_cleanMuonIVVar = cms.vstring("TM_cleanMuonIVVar", "TM == 1 && numberOfMatchedStations > 0 && (tkValidHits >= 10 || (tkValidHits >= 7 && tkExpHitIn == 0 && tkExpHitOut == 0))", "TM", "numberOfMatchedStations", "tkValidHits", "tkExpHitIn", "tkExpHitOut")
+        process.TnP_MuonID.Expressions.TM_cleanMuonIVVar = cms.vstring("TM_cleanMuonIVVar", "TM == 1 && numberOfMatchedStations > 0 && (tkValidHits >= 10 || (tkValidHits >= 7 && tkHitFract==1))", "TM", "numberOfMatchedStations", "tkValidHits", "tkHitFract")
         process.TnP_MuonID.Cuts.TM_cleanMuonIVCut = cms.vstring("TM_cleanMuonIVCut", "TM_cleanMuonIVVar", "0.5")    
     elif num == "highptid":
         process.TnP_MuonID.Variables.dzPV  = cms.vstring("dzPV", "-1000", "1000", "")
