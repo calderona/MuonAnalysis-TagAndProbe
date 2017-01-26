@@ -74,7 +74,7 @@ TrackQualityVariables = cms.PSet(
   #  tkExpHitOut = cms.string("? track.isNull ? 0 : track.trackerExpectedHitsOuter().numberOfLostHits"),
     tkExpHitIn = cms.string("? track.isNull ? 0 : track.hitPattern.numberOfLostHits('MISSING_INNER_HITS')"), #reco::HitPattern::
     tkExpHitOut = cms.string("? track.isNull ? 0 : track.hitPattern.numberOfLostHits('MISSING_OUTER_HITS')"), #reco::HitPattern::
-    tkLostHits = cms.string("? track.isNull ? 0 : track.hitPattern.numberOfLostHits('TRACK_HITS')+track.hitPattern.numberOfLostHits('MISSING_INNER_HITS')+ track.hitPattern.numberOfLostHits('MISSING_OUTER_HITS')"),
+    tkLostHits = cms.string("? innerTrack.isNull ? 0 : innerTrack.numberOfLostHits"),
     #  tkHitFract  = cms.string("? track.isNull ? 0 : track.hitPattern.numberOfValidHits/(track.hitPattern.numberOfValidHits+track.hitPattern.numberOfLostHits+track.trackerExpectedHitsInner().numberOfLostHits+track.trackerExpectedHitsOuter().numberOfLostHits)"),
     tkHitFract  = cms.string("? track.isNull ? 0 : track.hitPattern.numberOfValidHits/(track.hitPattern.numberOfValidHits+track.hitPattern.numberOfLostHits('TRACK_HITS')+track.hitPattern.numberOfLostHits('MISSING_INNER_HITS')+ track.hitPattern.numberOfLostHits('MISSING_OUTER_HITS') )"),
     tkChi2 = cms.string("? track.isNull ? -1 : track.normalizedChi2"),
@@ -171,7 +171,7 @@ MuonIDFlags = cms.PSet(
                         " abs(track.ptError / pt) < 0.10 )"),
     MuIDForOutsideInTk = cms.string("isStandAloneMuon && outerTrack.pt > 10 && outerTrack.hitPattern.muonStationsWithValidHits() >= 2"),
     TMArbitrated = cms.string("isTrackerMuon && numberOfMatchedStations > 0"),
-    TMArbitratedTrackQual = cms.string("isTrackerMuon && numberOfMatchedStations > 0 && (track.numberOfValidHits  >= 10 || (track.numberOfValidHits  >= 7 && (track.hitPattern.numberOfLostHits('TRACK_HITS')+track.hitPattern.numberOfLostHits('MISSING_INNER_HITS')+ track.hitPattern.numberOfLostHits('MISSING_OUTER_HITS')) == 0 ) )"), 
+    TMArbitratedTrackQual = cms.string("isTrackerMuon && numberOfMatchedStations > 0 && (track.numberOfValidHits  >= 10 || (track.numberOfValidHits  >= 7 &&  innerTrack.numberOfLostHits == 0))"), 
 )
 
 HighPtTriggerFlags = cms.PSet(
