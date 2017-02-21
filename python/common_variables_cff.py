@@ -170,7 +170,6 @@ MuonIDFlags = cms.PSet(
                         " innerTrack.hitPattern.numberOfValidPixelHits > 0 && " + 
                         " abs(track.ptError / pt) < 0.10 )"),
     MuIDForOutsideInTk = cms.string("isStandAloneMuon && outerTrack.pt > 10 && outerTrack.hitPattern.muonStationsWithValidHits() >= 2"),
-    TMArbitrated = cms.string("isTrackerMuon && numberOfMatchedStations > 0"),
     TMArbitratedTrackQual = cms.string("isTrackerMuon && numberOfMatchedStations > 0 && (track.numberOfValidHits  >= 10 || (track.numberOfValidHits  >= 7 &&  innerTrack.numberOfLostHits == 0))"), 
 )
 
