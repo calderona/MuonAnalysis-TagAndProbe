@@ -30,6 +30,30 @@ def FillNumDen(num, den):
         process.TnP_MuonID.Categories.Tight2012 = cms.vstring("Tight Id. Muon", "dummy[pass=1,fail=0]")
         process.TnP_MuonID.Expressions.Tight2012_zIPCutVar = cms.vstring("Tight2012_zIPCut", "Tight2012 == 1 && abs(dzPV) < 0.5", "Tight2012", "dzPV")
         process.TnP_MuonID.Cuts.Tight2012_zIPCut = cms.vstring("Tight2012_zIPCut", "Tight2012_zIPCutVar", "0.5")
+    elif num == "puppiIso":
+        process.TnP_MuonID.Variables.pt = cms.vstring("pt", "0.0", "999", "")
+        process.TnP_MuonID.Variables.muPFIsoValueCHR04PUPPI = cms.vstring("muPFIsoValueCHR04PUPPI", "-1.0", "99999999","")
+        process.TnP_MuonID.Variables.muPFIsoValueNHR04PUPPI = cms.vstring("muPFIsoValueNHR04PUPPI","-1.0",  "99999999", "")
+        process.TnP_MuonID.Variables.muPFIsoValuePhR04PUPPI = cms.vstring("muPFIsoValuePhR04PUPPI", "-1.0", "99999999", "")
+        process.TnP_MuonID.Expressions.puppiIsoVar = cms.vstring("puppiIsoVar", "(muPFIsoValueCHR04PUPPI+muPFIsoValueNHR04PUPPI+muPFIsoValuePhR04PUPPI)/pt", "muPFIsoValueCHR04PUPPI", "muPFIsoValueNHR04PUPPI","muPFIsoValuePhR04PUPPI","pt")
+        process.TnP_MuonID.Cuts.puppiIsoCut =  cms.vstring("puppiIsoCut", "puppiIsoVar", "0.201")
+    elif num == "puppiIsoNoLep":
+        process.TnP_MuonID.Variables.pt = cms.vstring("pt", "0.0", "999", "")
+        process.TnP_MuonID.Variables.muPFIsoValueCHR04PUPPINoLep = cms.vstring("muPFIsoValueCHR04PUPPINoLep", "-1.0", "99999999","")
+        process.TnP_MuonID.Variables.muPFIsoValueNHR04PUPPINoLep = cms.vstring("muPFIsoValueNHR04PUPPINoLep","-1.0",  "99999999", "")
+        process.TnP_MuonID.Variables.muPFIsoValuePhR04PUPPINoLep = cms.vstring("muPFIsoValuePhR04PUPPINoLep", "-1.0", "99999999", "")
+        process.TnP_MuonID.Expressions.puppiIsoNoLepVar = cms.vstring("puppiIsoNoLepVar", "(muPFIsoValueCHR04PUPPINoLep+muPFIsoValueNHR04PUPPINoLep+muPFIsoValuePhR04PUPPINoLep)/pt", "muPFIsoValueCHR04PUPPINoLep", "muPFIsoValueNHR04PUPPINoLep","muPFIsoValuePhR04PUPPINoLep","pt")
+        process.TnP_MuonID.Cuts.puppiIsoNoLepCut =  cms.vstring("puppiIsoNoLepCut", "puppiIsoNoLepVar", "0.123")
+    elif num == "combpuppiIso":
+        process.TnP_MuonID.Variables.pt = cms.vstring("pt", "0.0", "999", "")
+        process.TnP_MuonID.Variables.muPFIsoValueCHR04PUPPI = cms.vstring("muPFIsoValueCHR04PUPPI", "-1.0", "99999999","")
+        process.TnP_MuonID.Variables.muPFIsoValueNHR04PUPPI = cms.vstring("muPFIsoValueNHR04PUPPI","-1.0",  "99999999", "")
+        process.TnP_MuonID.Variables.muPFIsoValuePhR04PUPPI = cms.vstring("muPFIsoValuePhR04PUPPI", "-1.0", "99999999", "")
+        process.TnP_MuonID.Variables.muPFIsoValueCHR04PUPPINoLep = cms.vstring("muPFIsoValueCHR04PUPPINoLep", "-1.0", "99999999","")
+        process.TnP_MuonID.Variables.muPFIsoValueNHR04PUPPINoLep = cms.vstring("muPFIsoValueNHR04PUPPINoLep","-1.0",  "99999999", "")
+        process.TnP_MuonID.Variables.muPFIsoValuePhR04PUPPINoLep = cms.vstring("muPFIsoValuePhR04PUPPINoLep", "-1.0", "99999999", "")
+        process.TnP_MuonID.Expressions.combpuppiIsoVar = cms.vstring("combpuppiIsoVar", "(muPFIsoValueCHR04PUPPINoLep+muPFIsoValueNHR04PUPPINoLep+muPFIsoValuePhR04PUPPINoLep+muPFIsoValueCHR04PUPPI+muPFIsoValueNHR04PUPPI+muPFIsoValuePhR04PUPPI)/pt", "muPFIsoValueCHR04PUPPINoLep", "muPFIsoValueNHR04PUPPINoLep","muPFIsoValuePhR04PUPPINoLep", "muPFIsoValueCHR04PUPPI", "muPFIsoValueNHR04PUPPI","muPFIsoValuePhR04PUPPI","pt")
+        process.TnP_MuonID.Cuts.combpuppiIsoCut =  cms.vstring("combpuppiIsoCut", "combpuppiIsoVar", "0.15")
     elif num == "muCleanerIII":
         process.TnP_MuonID.Variables.numberOfMatchedStations  = cms.vstring("numberOfMatchedStations", "-0.5", "7.5", "")
         process.TnP_MuonID.Categories.TM = cms.vstring("TM", "dummy[pass=1,fail=0]")
@@ -86,6 +110,8 @@ def FillVariables(par):
         process.TnP_MuonID.Variables.abseta  = cms.vstring("muon |#eta|", "0", "2.5", "")
     if par == 'tag_instLumi':
         process.TnP_MuonID.Variables.tag_instLumi  = cms.vstring("Inst. Lumi [10E30]", "0", "15", "")
+    if par == 'pair_deltaR':
+        process.TnP_MuonID.Variables.pair_deltaR  = cms.vstring("deltaR", "0", "4", "")
     if par == 'vtx':
         print 'I filled it'
         process.TnP_MuonID.Variables.tag_nVertices   = cms.vstring("Number of vertices", "0", "999", "")
@@ -102,6 +128,8 @@ def FillBin(par):
         DEN.eta = cms.vdouble(-2.4, -2.1, -1.6, -1.2, -0.9, -0.3, -0.2, 0.2, 0.3, 0.9, 1.2, 1.6, 2.1, 2.4)
     elif par == 'pt':
         DEN.pt = cms.vdouble(20, 25, 30, 40, 50, 60, 120, 200)
+    elif par == 'pair_deltaR':
+        DEN.pair_deltaR = cms.vdouble(0., 0.4, 0.8, 1.2, 1.6, 2.0, 2.4, 2.8, 3.2, 5.0)
     elif par == 'tag_instLumi':
         DEN.tag_instLumi = cms.vdouble(1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200, 4400, 4600, 4800, 5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8000, 9000, 9200, 9400, 9600, 9800, 10000, 10200, 10400, 10600, 10800, 1100) # for runs BCD 
     elif par == 'pt_eta':
@@ -109,8 +137,8 @@ def FillBin(par):
         DEN.abseta = cms.vdouble( 0., 0.9, 1.2, 2.1, 2.4)
     elif par == 'vtx':
         print 'I filled it also asdf'
-        #DEN.tag_nVertices = cms.vdouble(0.5,2.5,4.5,6.5,8.5,10.5,12.5,14.5,16.5,18.5,20.5,22.5,24.5,26.5,28.5,30.5,32.5,34.5,36.5,38.5,40.5,42.5,44.5,46.5,48.5,50.5,52.5,54.5)
-        DEN.tag_nVertices = cms.vdouble(0.5,4.5,8.5,12.5,16.5,20.5,24.5,28.5,32.5,38.5,42.5,46.5,50.5,54.5)   
+        DEN.tag_nVertices = cms.vdouble(0.5,2.5,4.5,6.5,8.5,10.5,12.5,14.5,16.5,18.5,20.5,22.5,24.5,26.5,28.5,30.5,32.5,34.5,36.5,38.5,40.5,42.5,44.5,46.5,48.5,50.5,52.5,54.5)
+        #DEN.tag_nVertices = cms.vdouble(0.5,4.5,8.5,12.5,16.5,20.5,24.5,28.5,32.5,38.5,42.5,46.5,50.5,54.5)   
  #Selections
     if den == "gentrack": pass
     elif den == "looseid": DEN.PF = cms.vstring("pass")
@@ -156,14 +184,14 @@ process.load('FWCore.MessageService.MessageLogger_cfi')
 process.source = cms.Source("EmptySource")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1) )
 
-if not num  in ['looseid', 'mediumid', 'tightid', 'muCleanerIII', 'muCleanerIV', 'highptid', 'looseiso', 'tightiso', 'tklooseiso']:
-    print '@ERROR: num should be in ',['looseid', 'mediumid', 'tightid', 'muCleanerIII', 'muCleanerIV', 'highptid', 'looseiso', 'tightiso', 'tklooseiso'], 'You used', num, '.Abort'
+if not num  in ['looseid', 'mediumid', 'tightid', 'puppiIso', 'puppiIsoNoLep', 'combpuppiIso','muCleanerIII', 'muCleanerIV', 'highptid', 'looseiso', 'tightiso', 'tklooseiso']:
+    print '@ERROR: num should be in ',['looseid', 'mediumid', 'tightid', 'puppiIso', 'puppiIsoNoLep', 'combpuppiIso', 'muCleanerIII', 'muCleanerIV', 'highptid', 'looseiso', 'tightiso', 'tklooseiso'], 'You used', num, '.Abort'
     sys.exit()
 if not den in ['looseid', 'mediumid', 'tightid', 'highptid', 'gentrack']:
     print '@ERROR: den should be',['looseid', 'mediumid', 'tightid', 'highptid'], 'You used', den, '.Abort'
     sys.exit()
-if not par in  ['pt', 'eta', 'vtx', 'pt_eta', 'newpt', 'newpt_eta', 'tag_instLumi']:
-    print '@ERROR: par should be', ['pt', 'eta', 'vtx', 'pt_eta', 'newpt', 'newpt_eta', 'tag_instLumi'], 'You used', par, '.Abort'
+if not par in  ['pt', 'eta', 'vtx', 'pt_eta', 'newpt', 'newpt_eta', 'tag_instLumi', 'pair_deltaR']:
+    print '@ERROR: par should be', ['pt', 'eta', 'vtx', 'pt_eta', 'newpt', 'newpt_eta', 'tag_instLumi', 'pair_deltaR'], 'You used', par, '.Abort'
 
 #_*_*_*_*_*_*_*_*_*_*_*_*
 #Prepare variables, den, num and fit funct
@@ -279,7 +307,8 @@ if sample == "data_BCDEF":
 if sample == "data_B":
     process.TnP_MuonID = Template.clone(
         InputFileNames = cms.vstring(
-            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016B_GoldenJSON_Run276098to276384_skimmed.root'             
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/TnPNTuples/2016ReRecoData/TnPTree_80XRereco_Run2016B_GoldenJSON_Run276098to276384_skim.root'
+            #'/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016B_GoldenJSON_Run276098to276384_skimmed_v1.root'             
             #'/tmp/calderon/eos/cms/store/group/phys_muon/fernanpe/2016treesSkimed/TnPTree_80XRereco_Run2016B_GoldenJSON_Run276098to276384_skimmed.root',
             #'/tmp/calderon/eos/cms/store/group/phys_muon/fernanpe/2016treesSkimed/TnPTree_80XRereco_Run2016C_GoldenJSON_Run276098to276384_skimmed.root',
             #'/tmp/calderon/eos/cms/store/group/phys_muon/fernanpe/2016treesSkimed/TnPTree_80XRereco_Run2016D_GoldenJSON_Run276098to276384_skimmed.root',
@@ -294,12 +323,17 @@ if sample == "data_B":
         )
 
 
-if sample == "data_GH":
+if sample == "data_2016":
     process.TnP_MuonID = Template.clone(
         InputFileNames = cms.vstring(          
-            #"file:TnPTree_80XRereco_Run2016G_GoldenJSON_Run278819to280384_skimmed.root",
-            #"file:TnPTree_80XRereco_Run2016H_GoldenJSON_Run284036to284044_skimmed.root",
-            "file:TnPTree_80XRereco_Run2016GH_skimmed.root"   
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016B_GoldenJSON_Run276098to276384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016C_GoldenJSON_Run276098to276384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016D_GoldenJSON_Run276098to276384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016E_GoldenJSON_Run276098to276384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016F_GoldenJSON_Run276098to276384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016G_GoldenJSON_Run278819to280384_skimmed_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/nPTree_80XRereco_Run2016H_v2_GoldenJSON_Run281613to284035_bis.root',
+            '/tmp/calderon/eos/cms/store/group/phys_muon/calderon/muonPOGtnpTrees/2016treesSkimed/TnPTree_80XRereco_Run2016H_GoldenJSON_Run284036to284044_bis.root'       
             ),
         InputTreeName = cms.string("fitter_tree"),
         InputDirectoryName = cms.string("tpTree"),
@@ -307,6 +341,18 @@ if sample == "data_GH":
         Efficiencies = cms.PSet(),
         )
 
+if sample == "data_GH":                                                                                                                  
+    process.TnP_MuonID = Template.clone(                                                                                                 
+        InputFileNames = cms.vstring(                                                                                                    
+            #"file:TnPTree_80XRereco_Run2016G_GoldenJSON_Run278819to280384_skimmed.root",                                                
+            #"file:TnPTree_80XRereco_Run2016H_GoldenJSON_Run284036to284044_skimmed.root",                                                
+            "file:TnPTree_80XRereco_Run2016GH_skimmed.root"                                                                              
+            ),                                                                                                                           
+        InputTreeName = cms.string("fitter_tree"),                                                                                       
+        InputDirectoryName = cms.string("tpTree"),                                                                                       
+        OutputFileName = cms.string("TnP_MuonISO_%s.root" % scenario),                                                                   
+        Efficiencies = cms.PSet(),                                                                                                       
+        )  
 
 if sample == "data_ICHEP":
     process.TnP_MuonID = Template.clone(
@@ -354,9 +400,9 @@ BIN = cms.PSet(
         )
 
 print 'debug1'
-Num_dic = {'looseid':'LooseID','mediumid':'MediumID','tightid':'TightID','muCleanerIII':'MuonCleanerIII', 'muCleanerIV':'MuonCleanerIV', 'highptid':'HighPtID','looseiso':'LooseRelIso','tightiso':'TightRelIso','tklooseiso':'LooseRelTkIso'}
+Num_dic = {'looseid':'LooseID','mediumid':'MediumID','tightid':'TightID','puppiIso':'PuppiIso','puppiIsoNoLep':'PuppiIsoNoLep','combpuppiIso':'combPuppiIso', 'muCleanerIII':'MuonCleanerIII', 'muCleanerIV':'MuonCleanerIV', 'highptid':'HighPtID','looseiso':'LooseRelIso','tightiso':'TightRelIso','tklooseiso':'LooseRelTkIso'}
 Den_dic = {'gentrack':'genTracks','looseid':'LooseID','mediumid':'MediumID','tightid':'TightIDandIPCut','highptid':'HighPtIDandIPCut'}
-Sel_dic = {'looseid':'Loose_noIP','mediumid':'Medium2016_noIP','tightid':'Tight2012_zIPCut','muCleanerIII':'TM_cleanMuonIIICut', 'muCleanerIV':'TM_cleanMuonIVCut', 'highptid':'HighPt_zIPCut','looseiso':'LooseIso4','tightiso':'TightIso4','tklooseiso':'LooseTkIso3'}
+Sel_dic = {'looseid':'Loose_noIP','mediumid':'Medium2016_noIP','tightid':'Tight2012_zIPCut','puppiIso':'puppiIsoCut', 'puppiIsoNoLep':'puppiIsoNoLepCut','combpuppiIso':'combpuppiIsoCut','muCleanerIII':'TM_cleanMuonIIICut', 'muCleanerIV':'TM_cleanMuonIVCut', 'highptid':'HighPt_zIPCut','looseiso':'LooseIso4','tightiso':'TightIso4','tklooseiso':'LooseTkIso3'}
 
 #Par_dic = {'eta':'eta', 'pt':}
 
@@ -469,6 +515,13 @@ for ID, ALLBINS in ID_BINS:
                 ))
         setattr(process, "TnP_MuonID_"+ID+"_"+X, module)
         setattr(process, "run_"+ID+"_"+X, cms.Path(module))
+        if num_.find("puppiIso") != -1:
+            setattr(module.Efficiencies, ID+"_"+X, cms.PSet(
+                    EfficiencyCategoryAndState = cms.vstring(num_,"below"),
+                    UnbinnedVariables = cms.vstring(mass_variable),
+                    BinnedVariables = DEN,
+                    BinToPDFmap = shape
+                    ))
     elif scenario == 'mc_all':
         if num_.find("Iso4") != -1 or num_.find("Iso3") != -1:
             setattr(module.Efficiencies, ID+"_"+X, cms.PSet(
