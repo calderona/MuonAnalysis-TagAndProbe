@@ -61,19 +61,19 @@ elif "CMSSW_7_6_" in os.environ['CMSSW_VERSION']:
             '/store/data/Run2015D/SingleMuon/AOD/16Dec2015-v1/10000/24537A2D-0BA8-E511-8D7C-20CF300E9ECF.root',
     ]
 elif "CMSSW_8_0_"in os.environ['CMSSW_VERSION']:
-    process.GlobalTag.globaltag = cms.string('80X_dataRun2_Prompt_v9')
+    process.GlobalTag.globaltag = cms.string('80X_dataRun2_2016SeptRepro_v3')
 
     process.source.fileNames = [
         '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0001E5C0-AE44-E611-9F88-02163E014235.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/007E4250-AE44-E611-867E-02163E011AB6.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/00997A4B-B044-E611-9FBB-02163E011EDE.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/02BB51AA-B044-E611-8DB0-02163E014168.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0466BA91-AE44-E611-825B-02163E0136EF.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0485506E-AE44-E611-A24B-02163E0140ED.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0494A580-B044-E611-993A-02163E012944.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/04C4B374-B044-E611-97D0-02163E011ECD.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/06056373-B044-E611-B41D-02163E0137AA.root',
-        '/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/064D926A-B044-E611-9CAA-02163E011FCC.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/007E4250-AE44-E611-867E-02163E011AB6.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/00997A4B-B044-E611-9FBB-02163E011EDE.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/02BB51AA-B044-E611-8DB0-02163E014168.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0466BA91-AE44-E611-825B-02163E0136EF.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0485506E-AE44-E611-A24B-02163E0140ED.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/0494A580-B044-E611-993A-02163E012944.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/04C4B374-B044-E611-97D0-02163E011ECD.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/06056373-B044-E611-B41D-02163E0137AA.root',
+        #'/store/data/Run2016C/SingleMuon/AOD/PromptReco-v2/000/276/283/00000/064D926A-B044-E611-9CAA-02163E011FCC.root',
         ]
  
 else: raise RuntimeError, "Unknown CMSSW version %s" % os.environ['CMSSW_VERSION']
@@ -157,9 +157,13 @@ process.load("MuonAnalysis.TagAndProbe.common_modules_cff")
 
 process.tagMuons = cms.EDFilter("PATMuonSelector",
     src = cms.InputTag("patMuonsWithTrigger"),
-    cut = cms.string("pt > 15 && "+MuonIDFlags.Tight2012.value()+
+    cut = cms.string("pt > 15 && "+MuonIDFlags.Medium2016.value()+
                      " && !triggerObjectMatchesByCollection('hltL3MuonCandidates').empty()"+
-                     " && pfIsolationR04().sumChargedHadronPt/pt < 0.2"),
+                     " && pfIsolationR04().sumChargedHadronPt/pt < 0.2")
+
+                                #cut = cms.string("pt > 15 && "+MuonIDFlags.Tight2012.value()+
+    #                 " && !triggerObjectMatchesByCollection('hltL3MuonCandidates').empty()"+
+    #                 " && pfIsolationR04().sumChargedHadronPt/pt < 0.2"),
 )
 process.pseudoTag = cms.EDFilter("MuonSelector",
     src = cms.InputTag("muons"),
