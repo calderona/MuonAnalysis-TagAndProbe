@@ -52,7 +52,7 @@ def FillNumDen(num, den):
         process.TnP_MuonID.Variables.muPFIsoValueCHR04PUPPINoLep = cms.vstring("muPFIsoValueCHR04PUPPINoLep", "-1.0", "99999999","")
         process.TnP_MuonID.Variables.muPFIsoValueNHR04PUPPINoLep = cms.vstring("muPFIsoValueNHR04PUPPINoLep","-1.0",  "99999999", "")
         process.TnP_MuonID.Variables.muPFIsoValuePhR04PUPPINoLep = cms.vstring("muPFIsoValuePhR04PUPPINoLep", "-1.0", "99999999", "")
-        process.TnP_MuonID.Expressions.combpuppiIsoVar = cms.vstring("combpuppiIsoVar", "(muPFIsoValueCHR04PUPPINoLep+muPFIsoValueNHR04PUPPINoLep+muPFIsoValuePhR04PUPPINoLep+muPFIsoValueCHR04PUPPI+muPFIsoValueNHR04PUPPI+muPFIsoValuePhR04PUPPI)/pt", "muPFIsoValueCHR04PUPPINoLep", "muPFIsoValueNHR04PUPPINoLep","muPFIsoValuePhR04PUPPINoLep", "muPFIsoValueCHR04PUPPI", "muPFIsoValueNHR04PUPPI","muPFIsoValuePhR04PUPPI","pt")
+        process.TnP_MuonID.Expressions.combpuppiIsoVar = cms.vstring("combpuppiIsoVar", "(muPFIsoValueCHR04PUPPINoLep+muPFIsoValueNHR04PUPPINoLep+muPFIsoValuePhR04PUPPINoLep+muPFIsoValueCHR04PUPPI+muPFIsoValueNHR04PUPPI+muPFIsoValuePhR04PUPPI)/(2*pt)", "muPFIsoValueCHR04PUPPINoLep", "muPFIsoValueNHR04PUPPINoLep","muPFIsoValuePhR04PUPPINoLep", "muPFIsoValueCHR04PUPPI", "muPFIsoValueNHR04PUPPI","muPFIsoValuePhR04PUPPI","pt")
         process.TnP_MuonID.Cuts.combpuppiIsoCut =  cms.vstring("combpuppiIsoCut", "combpuppiIsoVar", "0.15")
     elif num == "muCleanerIII":
         process.TnP_MuonID.Variables.numberOfMatchedStations  = cms.vstring("numberOfMatchedStations", "-0.5", "7.5", "")
